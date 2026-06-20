@@ -22,6 +22,21 @@ try {
     $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$db", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+    // Auto-bootstrap schema if tables do not exist
+    try {
+        $pdo->query("SELECT 1 FROM movies LIMIT 1");
+    } catch (PDOException $schemaException) {
+        $schemaFile = __DIR__ . '/schema.sql';
+        if (file_exists($schemaFile)) {
+            $sql = file_get_contents($schemaFile);
+            try {
+                $pdo->exec($sql);
+            } catch (PDOException $execException) {
+                die("Failed to auto-initialize database schema: " . $execException->getMessage());
+            }
+        }
+    }
 } catch (PDOException $e) {
     // Show a beautiful, user-friendly error page with troubleshooting steps
     $isRender = (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'render.com') !== false) 
