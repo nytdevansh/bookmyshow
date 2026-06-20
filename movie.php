@@ -7,11 +7,11 @@ $stmt  = $pdo->prepare("SELECT * FROM movies WHERE id = ?");
 $stmt->execute([$id]);
 $movie = $stmt->fetch();
 if (!$movie) {
-    header('Location: movies.php');
+    header('Location: ' . BASE_PATH . '/movies.php');
     exit;
 }
 
-$stmt2 = $pdo->prepare("SELECT * FROM shows WHERE movie_id = ? AND show_date >= CURDATE() ORDER BY show_date, show_time");
+$stmt2 = $pdo->prepare("SELECT * FROM shows WHERE movie_id = ? AND show_date >= CURRENT_DATE ORDER BY show_date, show_time");
 $stmt2->execute([$id]);
 $shows = $stmt2->fetchAll();
 

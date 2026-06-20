@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $pdo->prepare("INSERT INTO movies (title,genre,duration,release_date,description,poster,banner,trailer_url,status) VALUES (?,?,?,?,?,?,?,?,?)")
                     ->execute([$title, $genre, $duration, $release, $desc, $poster, $banner, $trailer, $status]);
             }
-            header('Location: /admin/movies.php?saved=1');
+            header('Location: ' . BASE_PATH . '/admin/movies.php?saved=1');
             exit;
         }
     }
@@ -267,17 +267,17 @@ $cur = basename($_SERVER['PHP_SELF']);
     <div class="admin-wrap">
         <div class="sidebar">
             <div class="brand">
-                <img src="a.png" alt="BookMyShow">
+                <img src="<?= BASE_PATH ?>/a.png" alt="BookMyShow">
                 <small>Admin Panel</small>
             </div>
             <nav>
-                <a href="admin/admin_dashboard.php" class="<?= $cur === 'admin_dashboard.php' ? 'active' : '' ?>">Dashboard</a>
-                <a href="admin/movies.php" class="<?= $cur === 'movies.php'    ? 'active' : '' ?>">Movies</a>
-                <a href="admin/add_movie.php" class="<?= $cur === 'add_movie.php' ? 'active' : '' ?>">Add Movie</a>
-                <a href="admin/shows.php" class="<?= $cur === 'shows.php'     ? 'active' : '' ?>">Shows</a>
+                <a href="<?= BASE_PATH ?>/admin/admin_dashboard.php" class="<?= $cur === 'admin_dashboard.php' ? 'active' : '' ?>">Dashboard</a>
+                <a href="<?= BASE_PATH ?>/admin/movies.php" class="<?= $cur === 'movies.php'    ? 'active' : '' ?>">Movies</a>
+                <a href="<?= BASE_PATH ?>/admin/add_movie.php" class="<?= $cur === 'add_movie.php' ? 'active' : '' ?>">Add Movie</a>
+                <a href="<?= BASE_PATH ?>/admin/shows.php" class="<?= $cur === 'shows.php'     ? 'active' : '' ?>">Shows</a>
                 <hr>
-                <a href="index.php">View Site</a>
-                <a href="logout.php">Logout</a>
+                <a href="<?= BASE_PATH ?>/index.php">View Site</a>
+                <a href="<?= BASE_PATH ?>/logout.php">Logout</a>
             </nav>
         </div>
         <div class="admin-content">
@@ -327,14 +327,14 @@ $cur = basename($_SERVER['PHP_SELF']);
                         <div class="form-group">
                             <label>Poster Image</label>
                             <?php if (!empty($movie['poster'])): ?>
-                                <div class="img-preview"><img src="assets/uploads/posters/<?= htmlspecialchars($movie['poster']) ?>"></div>
+                                <div class="img-preview"><img src="<?= BASE_PATH ?>/assets/uploads/posters/<?= htmlspecialchars($movie['poster']) ?>"></div>
                             <?php endif; ?>
                             <input type="file" name="poster" accept="image/*">
                         </div>
                         <div class="form-group">
                             <label>Banner Image</label>
                             <?php if (!empty($movie['banner'])): ?>
-                                <div class="img-preview"><img src="assets/uploads/banners/<?= htmlspecialchars($movie['banner']) ?>"></div>
+                                <div class="img-preview"><img src="<?= BASE_PATH ?>/assets/uploads/banners/<?= htmlspecialchars($movie['banner']) ?>"></div>
                             <?php endif; ?>
                             <input type="file" name="banner" accept="image/*">
                         </div>
@@ -347,7 +347,7 @@ $cur = basename($_SERVER['PHP_SELF']);
 
                     <div class="form-actions">
                         <button type="submit" class="btn btn-red"><?= $movie ? 'Update Movie' : 'Add Movie' ?></button>
-                        <a href="admin/movies.php" class="btn btn-outline">Cancel</a>
+                        <a href="<?= BASE_PATH ?>/admin/movies.php" class="btn btn-outline">Cancel</a>
                     </div>
                 </form>
             </div>

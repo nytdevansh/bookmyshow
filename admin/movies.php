@@ -13,7 +13,7 @@ if (isset($_GET['delete'])) {
         if ($m['banner']) @unlink(__DIR__ . '/../assets/uploads/banners/' . $m['banner']);
     }
     $pdo->prepare("DELETE FROM movies WHERE id=?")->execute([$id]);
-    header('Location: /admin/movies.php?deleted=1');
+    header('Location: ' . BASE_PATH . '/admin/movies.php?deleted=1');
     exit;
 }
 
@@ -232,24 +232,24 @@ $cur    = basename($_SERVER['PHP_SELF']);
     <div class="admin-wrap">
         <div class="sidebar">
             <div class="brand">
-                <img src="a.png" alt="BookMyShow">
+                <img src="<?= BASE_PATH ?>/a.png" alt="BookMyShow">
                 <small>Admin Panel</small>
             </div>
             <nav>
-                <a href="admin/admin_dashboard.php" class="<?= $cur === 'admin_dashboard.php' ? 'active' : '' ?>">Dashboard</a>
-                <a href="admin/movies.php" class="<?= $cur === 'movies.php'     ? 'active' : '' ?>">Movies</a>
-                <a href="admin/add_movie.php" class="<?= $cur === 'add_movie.php'  ? 'active' : '' ?>">Add Movie</a>
-                <a href="admin/shows.php" class="<?= $cur === 'shows.php'      ? 'active' : '' ?>">Shows</a>
+                <a href="<?= BASE_PATH ?>/admin/admin_dashboard.php" class="<?= $cur === 'admin_dashboard.php' ? 'active' : '' ?>">Dashboard</a>
+                <a href="<?= BASE_PATH ?>/admin/movies.php" class="<?= $cur === 'movies.php'     ? 'active' : '' ?>">Movies</a>
+                <a href="<?= BASE_PATH ?>/admin/add_movie.php" class="<?= $cur === 'add_movie.php'  ? 'active' : '' ?>">Add Movie</a>
+                <a href="<?= BASE_PATH ?>/admin/shows.php" class="<?= $cur === 'shows.php'      ? 'active' : '' ?>">Shows</a>
                 <hr>
-                <a href="index.php">View Site</a>
-                <a href="logout.php">Logout</a>
+                <a href="<?= BASE_PATH ?>/index.php">View Site</a>
+                <a href="<?= BASE_PATH ?>/logout.php">Logout</a>
             </nav>
         </div>
         <div class="content">
             <div class="table-wrap">
                 <div class="top">
                     <h3>Movies</h3>
-                    <a href="admin/add_movie.php" class="btn btn-red">+ Add Movie</a>
+                    <a href="<?= BASE_PATH ?>/admin/add_movie.php" class="btn btn-red">+ Add Movie</a>
                 </div>
 
                 <?php if ($_GET['deleted'] ?? false): ?><div class="alert-inner">Movie deleted.</div><?php endif; ?>
@@ -272,7 +272,7 @@ $cur    = basename($_SERVER['PHP_SELF']);
                                 <tr>
                                     <td>
                                         <?php if ($m['poster']): ?>
-                                            <img src="assets/uploads/posters/<?= htmlspecialchars($m['poster']) ?>" class="thumb-img">
+                                            <img src="<?= BASE_PATH ?>/assets/uploads/posters/<?= htmlspecialchars($m['poster']) ?>" class="thumb-img">
                                         <?php else: ?>
                                             <div class="thumb-placeholder"></div>
                                         <?php endif; ?>
@@ -287,8 +287,8 @@ $cur    = basename($_SERVER['PHP_SELF']);
                                     </td>
                                     <td>
                                         <div class="actions">
-                                            <a href="admin/add_movie.php?edit=<?= $m['id'] ?>" class="btn">Edit</a>
-                                            <a href="admin/shows.php?movie_id=<?= $m['id'] ?>" class="btn">Shows</a>
+                                             <a href="<?= BASE_PATH ?>/admin/add_movie.php?edit=<?= $m['id'] ?>" class="btn">Edit</a>
+                                             <a href="<?= BASE_PATH ?>/admin/shows.php?movie_id=<?= $m['id'] ?>" class="btn">Shows</a>
                                             <a href="?delete=<?= $m['id'] ?>" class="btn btn-del" onclick="return confirm('Delete this movie?')">Delete</a>
                                         </div>
                                     </td>

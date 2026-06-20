@@ -3,7 +3,7 @@ require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/database.php';
 
 if (isLoggedIn()) {
-    header('Location: index.php');
+    header('Location: ' . BASE_PATH . '/index.php');
     exit;
 }
 

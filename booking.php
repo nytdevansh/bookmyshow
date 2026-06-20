@@ -8,7 +8,7 @@ $stmt   = $pdo->prepare("SELECT s.*, m.title, m.poster FROM shows s JOIN movies 
 $stmt->execute([$showId]);
 $show   = $stmt->fetch();
 if (!$show) {
-    header('Location: movies.php');
+    header('Location: ' . BASE_PATH . '/movies.php');
     exit;
 }
 
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $pdo->prepare("INSERT INTO bookings (booking_code, user_id, show_id, seats, total_amount) VALUES (?,?,?,?,?)")
                     ->execute([$code, $_SESSION['user_id'], $showId, implode(',', $sel), $total]);
                 $pdo->commit();
-                header("Location: bookings.php?success=$code");
+                header("Location: " . BASE_PATH . "/bookings.php?success=$code");
                 exit;
             } catch (Exception $e) {
                 $pdo->rollBack();

@@ -187,17 +187,17 @@ $cur = basename($_SERVER['PHP_SELF']);
     <div class="admin-wrap">
         <div class="sidebar">
             <div class="brand">
-                <img src="a.png" alt="BookMyShow">
+                <img src="<?= BASE_PATH ?>/a.png" alt="BookMyShow">
                 <small>Admin Panel</small>
             </div>
             <nav>
-                <a href="admin/admin_dashboard.php" class="<?= $cur === 'admin_dashboard.php' ? 'active' : '' ?>">Dashboard</a>
-                <a href="admin/movies.php" class="<?= $cur === 'movies.php'     ? 'active' : '' ?>">Movies</a>
-                <a href="admin/add_movie.php" class="<?= $cur === 'add_movie.php'  ? 'active' : '' ?>">Add Movie</a>
-                <a href="admin/shows.php" class="<?= $cur === 'shows.php'      ? 'active' : '' ?>">Shows</a>
+                <a href="<?= BASE_PATH ?>/admin/admin_dashboard.php" class="<?= $cur === 'admin_dashboard.php' ? 'active' : '' ?>">Dashboard</a>
+                <a href="<?= BASE_PATH ?>/admin/movies.php" class="<?= $cur === 'movies.php'     ? 'active' : '' ?>">Movies</a>
+                <a href="<?= BASE_PATH ?>/admin/add_movie.php" class="<?= $cur === 'add_movie.php'  ? 'active' : '' ?>">Add Movie</a>
+                <a href="<?= BASE_PATH ?>/admin/shows.php" class="<?= $cur === 'shows.php'      ? 'active' : '' ?>">Shows</a>
                 <hr>
-                <a href="index.php">View Site</a>
-                <a href="logout.php">Logout</a>
+                <a href="<?= BASE_PATH ?>/index.php">View Site</a>
+                <a href="<?= BASE_PATH ?>/logout.php">Logout</a>
             </nav>
         </div>
         <div class="content">

@@ -7,7 +7,7 @@ $movieId = (int)($_GET['movie_id'] ?? 0);
 
 if (isset($_GET['delete'])) {
     $pdo->prepare("DELETE FROM shows WHERE id=?")->execute([(int)$_GET['delete']]);
-    header('Location: /admin/shows.php' . ($movieId ? "?movie_id=$movieId" : ''));
+    header('Location: ' . BASE_PATH . '/admin/shows.php' . ($movieId ? "?movie_id=$movieId" : ''));
     exit;
 }
 
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $pdo->prepare("INSERT INTO shows (movie_id, show_date, show_time, screen_name, total_seats, price) VALUES (?,?,?,?,?,?)")
             ->execute([$mid, $date, $time, $screen, $seats, $price]);
-        header('Location: /admin/shows.php?movie_id=' . $mid . '&saved=1');
+        header('Location: ' . BASE_PATH . '/admin/shows.php?movie_id=' . $mid . '&saved=1');
         exit;
     }
 }
@@ -299,17 +299,17 @@ $cur = basename($_SERVER['PHP_SELF']);
     <div class="admin-wrap">
         <div class="sidebar">
             <div class="brand">
-                <img src="a.png" alt="BookMyShow">
+                <img src="<?= BASE_PATH ?>/a.png" alt="BookMyShow">
                 <small>Admin Panel</small>
             </div>
             <nav>
-                <a href="admin/admin_dashboard.php" class="<?= $cur === 'admin_dashboard.php' ? 'active' : '' ?>">Dashboard</a>
-                <a href="admin/movies.php" class="<?= $cur === 'movies.php'    ? 'active' : '' ?>">Movies</a>
-                <a href="admin/add_movie.php" class="<?= $cur === 'add_movie.php' ? 'active' : '' ?>">Add Movie</a>
-                <a href="admin/shows.php" class="<?= $cur === 'shows.php'     ? 'active' : '' ?>">Shows</a>
+                <a href="<?= BASE_PATH ?>/admin/admin_dashboard.php" class="<?= $cur === 'admin_dashboard.php' ? 'active' : '' ?>">Dashboard</a>
+                <a href="<?= BASE_PATH ?>/admin/movies.php" class="<?= $cur === 'movies.php'    ? 'active' : '' ?>">Movies</a>
+                <a href="<?= BASE_PATH ?>/admin/add_movie.php" class="<?= $cur === 'add_movie.php' ? 'active' : '' ?>">Add Movie</a>
+                <a href="<?= BASE_PATH ?>/admin/shows.php" class="<?= $cur === 'shows.php'     ? 'active' : '' ?>">Shows</a>
                 <hr>
-                <a href="index.php">View Site</a>
-                <a href="logout.php">Logout</a>
+                <a href="<?= BASE_PATH ?>/index.php">View Site</a>
+                <a href="<?= BASE_PATH ?>/logout.php">Logout</a>
             </nav>
         </div>
         <div class="admin-content">
@@ -360,9 +360,9 @@ $cur = basename($_SERVER['PHP_SELF']);
                     <?php endif; ?>
 
                     <div class="shows-filter">
-                        <a href="admin/shows.php" class="btn <?= !$movieId ? 'btn-red' : 'btn-outline' ?> btn-sm">All</a>
+                        <a href="<?= BASE_PATH ?>/admin/shows.php" class="btn <?= !$movieId ? 'btn-red' : 'btn-outline' ?> btn-sm">All</a>
                         <?php foreach ($movies as $m): ?>
-                            <a href="admin/shows.php?movie_id=<?= $m['id'] ?>" class="btn <?= $m['id'] == $movieId ? 'btn-red' : 'btn-outline' ?> btn-sm"><?= htmlspecialchars($m['title']) ?></a>
+                            <a href="<?= BASE_PATH ?>/admin/shows.php?movie_id=<?= $m['id'] ?>" class="btn <?= $m['id'] == $movieId ? 'btn-red' : 'btn-outline' ?> btn-sm"><?= htmlspecialchars($m['title']) ?></a>
                         <?php endforeach; ?>
                     </div>
 

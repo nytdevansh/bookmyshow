@@ -23,7 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['role']    = $user['role'];
             $redirect = $_GET['redirect'] ?? '';
             if (!$redirect) {
-                $redirect = ($user['role'] === 'admin') ? 'admin/admin_dashboard.php' : 'index.php';
+                $redirect = ($user['role'] === 'admin') ? BASE_PATH . '/admin/admin_dashboard.php' : BASE_PATH . '/index.php';
+            } else if (strpos($redirect, '/') !== 0 && strpos($redirect, 'http') !== 0) {
+                $redirect = BASE_PATH . '/' . $redirect;
             }
             header('Location: ' . $redirect);
             exit;
