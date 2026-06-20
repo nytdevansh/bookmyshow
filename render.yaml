@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: bookmyshow
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: bookmyshow-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: bookmyshow-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: bookmyshow-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: bookmyshow-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: bookmyshow-db
+          property: password
+
+databases:
+  - name: bookmyshow-db
+    plan: free
+    databaseName: bookmyshow
+    user: bookmyshow_user

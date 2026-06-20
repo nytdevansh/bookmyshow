@@ -1,0 +1,16 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploaded media (ephemeral on Render)
+assets/uploads/
+
+# Local environment
+.env
+.env.local
+
+# XAMPP / local config
+database.local.php
+
+# Git
+*.orig
