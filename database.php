@@ -37,6 +37,29 @@ try {
             }
         }
     }
+
+    // Ensure default admin exists with the correct password ('admin123')
+    try {
+        $stmt = $pdo->prepare("SELECT id, password FROM users WHERE email = 'admin@bookmyshow.com'");
+        $stmt->execute();
+        $admin = $stmt->fetch();
+        
+        $adminPassword = 'admin123';
+        if (!$admin) {
+            $hashed = password_hash($adminPassword, PASSWORD_DEFAULT);
+            $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES ('Admin', 'admin@bookmyshow.com', ?, 'admin')");
+            $stmt->execute([$hashed]);
+        } else {
+            // If the password hash corresponds to the old 'password' hash, update it to 'admin123'
+            if (password_verify('password', $admin['password'])) {
+                $hashed = password_hash($adminPassword, PASSWORD_DEFAULT);
+                $stmt = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
+                $stmt->execute([$hashed, $admin['id']]);
+            }
+        }
+    } catch (PDOException $adminException) {
+        // Ignore if the users table doesn't exist yet
+    }
 } catch (PDOException $e) {
     // Show a beautiful, user-friendly error page with troubleshooting steps
     $isRender = (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'render.com') !== false) 
